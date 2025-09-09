@@ -1,0 +1,28 @@
+.soype-richtext {
+  background-color: #eff4f8;
+}
+.soype-richtext__container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  max-width: 1440px;
+  margin: auto;
+}
+.soype-richtext--align-left {
+  align-items: flex-start;
+  justify-content: center;
+}
+.soype-richtext--align-center {
+  align-items: center;
+  justify-content: center;
+}
+.soype-richtext--align-right {
+  align-items: flex-end;
+  justify-content: center;
+  text-align: right;
+}
+.soype-richtext--align-justify {
+  align-items: flex-start;
+  justify-content: center;
+  text-align: justify;
+}/*# sourceMappingURL=richtext.css.map */

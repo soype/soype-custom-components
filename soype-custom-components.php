@@ -16,3 +16,4 @@ define('SOYPECC_URL',  plugin_dir_url(__FILE__));
  * ========== Loader ==========
  */
 require_once SOYPECC_PATH . 'components/slider.php';
+require_once SOYPECC_PATH . 'components/richtext.php';
