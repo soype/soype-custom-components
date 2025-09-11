@@ -1,5 +1,4 @@
 .soype-richtext{    
-    background-color: #eff4f8;
 
     &__container{
         display: flex;
@@ -29,5 +28,9 @@
         align-items: flex-start;
         justify-content: center;
         text-align: justify;
+    }
+
+    &__title{
+        margin-bottom: 1rem;
     }
 }

@@ -90,6 +90,20 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
         ],
     ]);
 
+    // Background color
+    $wp_customize->add_setting('soype_richtext_color', [
+        'default'           => '#ffffff', 
+        'type'              => 'theme_mod',
+        'sanitize_callback' => 'sanitize_hex_color', 
+    ]);
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'soype_richtext_color', [
+        'label'       => __('Color de fondo', 'soype'),
+        'description' => __('Elegí un color en formato HEX', 'soype'),
+        'section'     => 'soype_richtext_section',
+    ]));
+
+
     // Custom class
     $wp_customize->add_setting('soype_richtext_class', [
         'default'           => '',
@@ -195,7 +209,8 @@ if ( ! function_exists('soypecc_render_richtext') ) {
             'class'       => get_theme_mod('soype_richtext_class', ''),
             'title'       => get_theme_mod('soype_richtext_title', ''),
             'description' => get_theme_mod('soype_richtext_description', ''),
-            'alignment'   => get_theme_mod('soype_richtext_alignment', 'center')
+            'alignment'   => get_theme_mod('soype_richtext_alignment', 'center'),
+            'color' => get_theme_mod('soype_richtext_color', '#ffffff')
         ];
         $args = wp_parse_args($args, $defaults);
 
@@ -210,6 +225,7 @@ if ( ! function_exists('soypecc_render_richtext') ) {
         $title = $args['title'];
         $description = $args['description'];
         $alignment = $args['alignment'];
+        $color = $args['color'];
 
         include SOYPECC_PATH . 'templates/richtext.php';
         return ob_get_clean();
