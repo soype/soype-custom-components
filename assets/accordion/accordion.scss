@@ -1,0 +1,99 @@
+.soype-accordion {
+  display: block;
+  width: 100%;
+}
+
+.soype-accordion__title {
+  margin: 0 0 16px;
+  font-size: clamp(20px, 2.4vw, 28px);
+  line-height: 1.2;
+}
+
+.soype-accordion__list {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 columna */
+  gap: 12px;
+  max-width: 1440px;
+  margin: auto;
+  padding: 2rem 1rem;
+}
+
+.soype-accordion__item {
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.soype-accordion__heading {
+  margin: 0;
+}
+
+.soype-accordion__button {
+  width: 100%;
+  padding: 14px 16px;
+  text-align: left;
+  background: #f9fafb;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:focus{
+    outline: none;
+  }
+
+  &-text{
+    font-size: 2rem;
+    text-wrap: wrap;
+  }
+}
+
+.soype-accordion__button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.soype-accordion__icon {
+  width: 16px;
+  height: 16px;
+  position: relative;
+}
+
+.soype-accordion__icon::before,
+.soype-accordion__icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 12px;
+  height: 2px;
+  background: currentColor;
+  transition: transform .2s ease;
+}
+
+.soype-accordion__icon::after {
+  transform: rotate(90deg);
+}
+
+.soype-accordion__item.is-open .soype-accordion__icon::after {
+  transform: rotate(0deg); /* queda signo menos */
+}
+
+.soype-accordion__panel[hidden] {
+  display: none;
+}
+
+.soype-accordion__panel {
+  padding: 0 16px 16px;
+  background: #fff;
+}
+
+.soype-accordion__panel-inner > *:first-child {
+  margin-top: 12px;
+}
+
+.soype-accordion__panel-inner p {
+  margin: 0 0 8px;
+}
