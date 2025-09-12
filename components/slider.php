@@ -37,38 +37,6 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
         'type'    => 'checkbox',
     ]);
 
-    // Injection
-    $wp_customize->add_setting('soype_slider_injection', [
-        'default'           => 'theme_hook', // theme_hook | content | shortcode_only
-        'type'              => 'theme_mod',
-        'sanitize_callback' => function($v){
-            return in_array($v, ['theme_hook','content','shortcode_only'], true) ? $v : 'theme_hook';
-        },
-    ]);
-    $wp_customize->add_control('soype_slider_injection', [
-        'label'   => __('Ubicación del slider', 'soype'),
-        'section' => 'soype_slider_section',
-        'type'    => 'select',
-        'choices' => [
-            'theme_hook'     => __('Hook del tema (recomendado)', 'soype'),
-            'content'        => __('Al inicio del contenido de la portada', 'soype'),
-            'shortcode_only' => __('Solo mediante shortcode/bloque (manual)', 'soype'),
-        ],
-    ]);
-
-    // Hook theme
-    $wp_customize->add_setting('soype_slider_theme_hook', [
-        'default'           => 'shopire_site_main_header', // por tu tema actual
-        'type'              => 'theme_mod',
-        'sanitize_callback' => function($v){ return sanitize_key($v); },
-    ]);
-    $wp_customize->add_control('soype_slider_theme_hook', [
-        'label'       => __('Nombre del hook del tema', 'soype'),
-        'description' => __('Ej.: shopire_site_main_header, wp_body_open, etc.', 'soype'),
-        'section'     => 'soype_slider_section',
-        'type'        => 'text',
-    ]);
-
     // Front only
     $wp_customize->add_setting('soype_slider_only_front', [
         'default'           => 1,
@@ -160,6 +128,38 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
     $wp_customize->add_control('soype_slider_class', [
         'label'       => __('Clases CSS (separadas por espacio)', 'soype'),
         'description' => __('Ej: hero dark text-lg', 'soype'),
+        'section'     => 'soype_slider_section',
+        'type'        => 'text',
+    ]);
+
+    // Injection
+    $wp_customize->add_setting('soype_slider_injection', [
+        'default'           => 'theme_hook', // theme_hook | content | shortcode_only
+        'type'              => 'theme_mod',
+        'sanitize_callback' => function($v){
+            return in_array($v, ['theme_hook','content','shortcode_only'], true) ? $v : 'theme_hook';
+        },
+    ]);
+    $wp_customize->add_control('soype_slider_injection', [
+        'label'   => __('Ubicación del slider', 'soype'),
+        'section' => 'soype_slider_section',
+        'type'    => 'select',
+        'choices' => [
+            'theme_hook'     => __('Hook del tema (recomendado)', 'soype'),
+            'content'        => __('Al inicio del contenido de la portada', 'soype'),
+            'shortcode_only' => __('Solo mediante shortcode/bloque (manual)', 'soype'),
+        ],
+    ]);
+
+    // Hook theme
+    $wp_customize->add_setting('soype_slider_theme_hook', [
+        'default'           => 'shopire_site_main_header', // por tu tema actual
+        'type'              => 'theme_mod',
+        'sanitize_callback' => function($v){ return sanitize_key($v); },
+    ]);
+    $wp_customize->add_control('soype_slider_theme_hook', [
+        'label'       => __('Nombre del hook del tema', 'soype'),
+        'description' => __('Ej.: shopire_site_main_header, wp_body_open, etc.', 'soype'),
         'section'     => 'soype_slider_section',
         'type'        => 'text',
     ]);

@@ -1,0 +1,51 @@
+.soype-twocolumnblock{
+    
+    &__inner{
+        margin: auto;
+        max-width: 1440px;
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 1fr;
+
+        @media (max-width: 768px){
+            grid-template-columns: 1fr;
+            grid-template-rows: 2fr;
+        }
+    }
+
+    &__col{
+        display: flex;
+        justify-content: center;
+
+        &-1{
+            flex-direction: row-reverse;
+        }
+
+        &-2{
+            .soype-twocolumnblock__content{
+                text-align: right;
+            }
+        }
+
+        @media (max-width: 768px){
+            flex-direction: column;
+
+            &-1, &-2{
+                flex-direction: column;
+            }
+
+        }
+    }
+
+    &__media{
+        min-width: 300px;
+        display: flex;
+        // align-items: center;
+    }
+
+    &__title{
+        margin-bottom: 1rem;
+    }
+
+}
