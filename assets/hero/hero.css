@@ -1,0 +1,34 @@
+.soype-hero__inner {
+  margin: auto;
+  max-width: 1440px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (max-width: 768px) {
+  .soype-hero__inner {
+    flex-direction: column;
+  }
+}
+.soype-hero__col {
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .soype-hero__col {
+    flex-direction: column;
+  }
+}
+.soype-hero__media {
+  min-width: 300px;
+  max-width: 600px;
+  display: flex;
+}
+.soype-hero__content {
+  flex: 0.8;
+}
+.soype-hero__title {
+  margin-bottom: 1rem;
+}/*# sourceMappingURL=hero.css.map */

@@ -1,0 +1,41 @@
+.soype-hero{
+    
+    &__inner{
+        margin: auto;
+        max-width: 1440px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-between;
+
+        @media (max-width: 768px){
+            flex-direction: column;
+        }
+    }
+
+    &__col{
+        display: flex;
+        justify-content: center;
+
+        @media (max-width: 768px){
+            flex-direction: column;
+        }
+    }
+
+    &__media{
+        min-width: 300px;
+        max-width: 600px;
+        display: flex;
+        // align-items: center;
+    }
+
+    &__content{
+        flex: 0.8;
+    }
+
+    &__title{
+        margin-bottom: 1rem;
+    }
+
+}
