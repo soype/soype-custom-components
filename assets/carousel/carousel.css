@@ -1,0 +1,108 @@
+/* ====== Carousel: base layout ====== */
+.soype-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.soype-carousel__viewport {
+  overflow: hidden; /* masks the sliding track */
+  width: 100%;
+}
+
+.soype-carousel__track {
+  display: flex;
+  flex-wrap: nowrap;
+  will-change: transform;
+  transition: transform 300ms ease;
+}
+
+/* Show exactly 3 cards at a time */
+.soype-carousel__slide {
+  flex: 0 0 33.3333%;
+  box-sizing: border-box;
+  padding: 12px; /* gutter between cards */
+}
+
+/* ====== Testimonial card styling ====== */
+.soype-card--testimonial {
+  height: 100%;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.soype-card--testimonial .soype-card__title {
+  margin: 0 0 8px 0;
+  font-size: clamp(16px, 2vw, 18px);
+  line-height: 1.3;
+}
+
+.soype-card--testimonial .soype-card__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* ====== Controls ====== */
+.soype-carousel__controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* allow clicks only on buttons */
+}
+
+.soype-carousel__controls .soype-carousel-prev,
+.soype-carousel__controls .soype-carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.soype-carousel__controls .soype-carousel-prev {
+  left: 8px;
+}
+
+.soype-carousel__controls .soype-carousel-next {
+  right: 8px;
+}
+
+.soype-carousel__controls .soype-carousel-prev:focus,
+.soype-carousel__controls .soype-carousel-next:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ====== Hide controls on desktop when exactly 3 items ======
+   JS will toggle .is-exact-3 on the root element. */
+@media (min-width: 1024px) {
+  .soype-carousel.is-exact-3 .soype-carousel__controls {
+    display: none;
+  }
+}
+/* ====== Small helpers ====== */
+.soype-carousel__track.is-animating {
+  /* hook for debugging/animations if needed */
+}
+
+/* Optional: reduce gutters on very small screens (still 3 visible as requested) */
+@media (max-width: 480px) {
+  .soype-carousel__slide {
+    padding: 6px;
+  }
+}/*# sourceMappingURL=carousel.css.map */
