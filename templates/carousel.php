@@ -80,14 +80,20 @@ $total = count($items);
     </div>
   </div>
 
-  <!-- Controls: JS wires these to move the track left/right (infinite loop) -->
-  <div class="soype-carousel__controls">
+    <!-- Controls: centered dots between prev/next -->
+  <div class="soype-carousel__controls" role="toolbar" aria-label="<?php echo esc_attr__('Controles del carrusel', 'soype'); ?>">
     <button class="soype-carousel-prev"
             type="button"
             aria-label="<?php echo esc_attr__('Anterior', 'soype'); ?>"
             aria-controls="<?php echo esc_attr($track); ?>">
       <span aria-hidden="true">‹</span>
     </button>
+
+    <div class="soype-carousel__dots"
+         role="tablist"
+         aria-label="<?php echo esc_attr__('Paginación', 'soype'); ?>">
+      <!-- JS will populate dots here -->
+    </div>
 
     <button class="soype-carousel-next"
             type="button"
@@ -96,6 +102,7 @@ $total = count($items);
       <span aria-hidden="true">›</span>
     </button>
   </div>
+
 
   <?php /* Optional pagination dots container (hook with JS later)
   <div class="soype-carousel__dots" role="tablist" aria-label="<?php echo esc_attr__('Paginación', 'soype'); ?>"></div>

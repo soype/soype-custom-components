@@ -2,12 +2,12 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+}
 
-  &__title{
+.soype-carousel__title{
     display: flex;
-    padding: 2rem;
     justify-content: center;
-  }
+    padding: 2rem;
 }
 
 .soype-carousel__viewport {
@@ -23,30 +23,31 @@
   flex-wrap: nowrap;
   will-change: transform;
   transition: transform 300ms ease;
+  padding: 1rem;
 }
 
-/* Default (desktop >1120px): 3 cards */
+/* Default (>1120px): 3 cards */
 .soype-carousel__slide {
   flex: 0 0 33.3333%;
   box-sizing: border-box;
   padding: 12px;
 }
 
-/* Medium screens: 2 cards (<=1120px) */
+/* <=1120px: 2 cards */
 @media (max-width: 1120px) {
   .soype-carousel__slide {
     flex: 0 0 50%;
   }
 }
 
-/* Small screens: 1 card (<=768px) */
+/* <=768px: 1 card */
 @media (max-width: 768px) {
   .soype-carousel__slide {
     flex: 0 0 100%;
   }
 }
 
-/* Card styling */
+/* Tarjeta testimonial */
 .soype-card--testimonial {
   height: 100%;
   background: #fff;
@@ -56,7 +57,6 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
 
 .soype-card__title {
@@ -72,19 +72,21 @@
   color: #333;
 }
 
-/* Controls */
+/* ===== Controles debajo del carrusel ===== */
 .soype-carousel__controls {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+  max-width: 1440px;       
+  margin: 12px auto 0;     
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px 20px;
+  flex-wrap: wrap;         
 }
 
+/* Botones prev/next */
 .soype-carousel-prev,
 .soype-carousel-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: auto;
   background: rgba(0,0,0,.45);
   color: #fff;
   border: none;
@@ -96,12 +98,35 @@
   cursor: pointer;
 }
 
-.soype-carousel-prev { left: 8px; }
-.soype-carousel-next { right: 8px; }
+.soype-carousel-prev:focus,
+.soype-carousel-next:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
 
-@media (min-width: 1121px) {
-  /* Hide controls if exactly 3 cards (JS adds .is-exact-3) */
-  .soype-carousel.is-exact-3 .soype-carousel__controls {
-    display: none;
-  }
+/* Dots */
+.soype-carousel__dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.soype-carousel__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 0;
+  background: #d0d0d0;
+  cursor: pointer;
+  padding: 0;
+}
+
+.soype-carousel__dot[aria-selected="true"],
+.soype-carousel__dot.is-active {
+  background: #333;
+}
+
+/* Ocultar toda la barra de controles cuando no se necesitan */
+.soype-carousel.is-controls-hidden .soype-carousel__controls {
+  display: none;
 }
