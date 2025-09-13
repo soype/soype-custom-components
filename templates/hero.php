@@ -12,7 +12,7 @@
 <section class="soype-hero <?php echo esc_attr($class); ?>" style="background:<?php echo esc_attr($hero['bg'] ?? '#ffffff'); ?>">
     <div class="soype-hero__inner">
         <?php if ( ! empty($hero['image_src']) ): ?>
-            <div class="soype-hero__media">
+            <div class="soype-hero__media <?php if ($hero['bg'] != '#ffffff'): ?> soype-hero__media--box <?php endif ?>">
                 <img src="<?php echo esc_url($hero['image_src']); ?>" alt="" style="max-width:100%;height:auto;display:block;">
             </div>
         <?php endif; ?>

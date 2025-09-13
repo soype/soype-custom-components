@@ -6,7 +6,7 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr;
 }
-@media (max-width: 768px) {
+@media (max-width: 1120px) {
   .soype-twocolumnblock__inner {
     grid-template-columns: 1fr;
     grid-template-rows: 2fr;
@@ -22,6 +22,11 @@
 .soype-twocolumnblock__col-2 .soype-twocolumnblock__content {
   text-align: right;
 }
+@media (max-width: 1120px) {
+  .soype-twocolumnblock__col {
+    align-items: center;
+  }
+}
 @media (max-width: 768px) {
   .soype-twocolumnblock__col {
     flex-direction: column;
@@ -33,6 +38,16 @@
 .soype-twocolumnblock__media {
   min-width: 300px;
   display: flex;
+}
+@media (max-width: 1120px) {
+  .soype-twocolumnblock__media {
+    min-width: 600px;
+  }
+}
+@media (max-width: 768px) {
+  .soype-twocolumnblock__media {
+    min-width: 300px;
+  }
 }
 .soype-twocolumnblock__title {
   margin-bottom: 1rem;
