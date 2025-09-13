@@ -78,6 +78,18 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
     ]);
 
     // -------- Optional: CSS classes ----------
+    $wp_customize->add_setting('soype_carousel_title', [
+        'default'           => '',
+        'type'              => 'theme_mod',
+        'sanitize_callback' => 'soypecc_sanitize_css_class',
+    ]);
+    $wp_customize->add_control('soype_carousel_title', [
+        'label'       => __('Título (de todo el Carousel)', 'soype'),
+        'section'     => 'soype_carousel_section',
+        'type'        => 'text',
+    ]);
+
+    // -------- Optional: CSS classes ----------
     $wp_customize->add_setting('soype_carousel_class', [
         'default'           => '',
         'type'              => 'theme_mod',
@@ -254,11 +266,13 @@ if ( ! function_exists('soypecc_render_carousel') ) {
         $defaults = [
             'class' => get_theme_mod('soype_carousel_class', ''),
             'items' => $items,
+            'title' => get_theme_mod('soype_carousel_title', ''),
         ];
         $args = wp_parse_args($args, $defaults);
 
         ob_start();
         // Expose $class and $items to template scope
+        $title = $args['title'];
         $class = $args['class'];
         $items = $args['items'];
         include SOYPECC_PATH . 'templates/carousel.php';

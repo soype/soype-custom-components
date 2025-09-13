@@ -26,7 +26,9 @@ $total = count($items);
      role="region"
      aria-roledescription="carousel"
      aria-label="<?php echo esc_attr__('Testimoniales', 'soype'); ?>">
-
+  <div class="soype-carousel__title">
+    <h2><?php echo esc_attr($title) ?></h2>
+  </div>
   <!-- Track: JS will translateX this element to create the infinite effect -->
   <div class="soype-carousel__viewport" aria-live="polite">
     <div class="soype-carousel__track" id="<?php echo esc_attr($track); ?>">
