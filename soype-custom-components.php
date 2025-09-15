@@ -21,3 +21,4 @@ require_once SOYPECC_PATH . 'components/slider.php';
 require_once SOYPECC_PATH . 'components/richtext.php';
 require_once SOYPECC_PATH . 'components/carousel.php';
 require_once SOYPECC_PATH . 'components/accordion.php';
+require_once SOYPECC_PATH . 'components/whatsapp.php';

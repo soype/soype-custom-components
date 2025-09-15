@@ -1,0 +1,22 @@
+.soype-whatsapp-btn {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5rem;
+  padding: 2rem;
+  font-weight: 600;
+
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  z-index: 100001;
+}
+.soype-whatsapp-btn:hover {
+  filter: brightness(0.95);
+}
+.soype-whatsapp-icon {
+  display: block;
+}
