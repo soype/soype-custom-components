@@ -53,4 +53,7 @@
 }
 .soype-button a, .wc-block-cart__submit-container a {
   color: white !important;
+}
+.soype-button:hover, .wc-block-cart__submit-container:hover {
+  color: white !important;
 }/*# sourceMappingURL=hero.css.map */
