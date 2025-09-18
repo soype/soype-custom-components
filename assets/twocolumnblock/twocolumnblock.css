@@ -1,7 +1,7 @@
 .soype-twocolumnblock__inner {
   margin: auto;
   max-width: 1440px;
-  padding: 2rem;
+  padding: 4rem 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr;
