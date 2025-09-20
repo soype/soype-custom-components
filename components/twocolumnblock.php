@@ -63,8 +63,40 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
         'type'        => 'text',
     ]);
 
-    // ====== Columns (2) ======
-    for ($i = 1; $i <= 2; $i++) {
+    // ====== Row backgrounds (new) ======
+    $wp_customize->add_setting('soype_twocol_row1_bg', [
+        'default'           => '',
+        'type'              => 'theme_mod',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Color_Control(
+        $wp_customize,
+        'soype_twocol_row1_bg',
+        [
+            'label'       => __('Row 1 background', 'soype'),
+            'description' => __('Background color for the first row (columns 1–2). Leave empty for transparent/none.', 'soype'),
+            'section'     => 'soype_two_columns_section',
+        ]
+    ));
+
+    $wp_customize->add_setting('soype_twocol_row2_bg', [
+        'default'           => '',
+        'type'              => 'theme_mod',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Color_Control(
+        $wp_customize,
+        'soype_twocol_row2_bg',
+        [
+            'label'       => __('Row 2 background', 'soype'),
+            'description' => __('Background color for the second row (columns 3–4). Leave empty for transparent/none.', 'soype'),
+            'section'     => 'soype_two_columns_section',
+        ]
+    ));
+
+
+    // ====== Columns (4) ======
+    for ($i = 1; $i <= 4; $i++) {
         // Title
         $wp_customize->add_setting("soype_twocol_{$i}_title", [
             'default'           => '',
@@ -127,23 +159,7 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
                 'section'   => 'soype_two_columns_section',
                 'mime_type' => 'image',
             ]
-        ));
-
-        // Background color (HEX) — native color picker
-        $wp_customize->add_setting("soype_twocol_{$i}_bg", [
-            'default'           => '#ffffff',
-            'type'              => 'theme_mod',
-            'sanitize_callback' => 'sanitize_hex_color',
-        ]);
-        $wp_customize->add_control(new WP_Customize_Color_Control(
-            $wp_customize,
-            "soype_twocol_{$i}_bg",
-            [
-                'label'       => sprintf(__('Column %d: Background color', 'soype'), $i),
-                'description' => __('Pick a HEX color for the column background.', 'soype'),
-                'section'     => 'soype_two_columns_section',
-            ]
-        ));
+        ));       
     }
 
     // Injection mode: theme_hook | content | shortcode_only
@@ -207,23 +223,46 @@ add_action('wp_enqueue_scripts', function () {
  */
 if ( ! function_exists('soypecc_get_two_columns') ) {
     function soypecc_get_two_columns() {
-        // Build both columns; if both are completely empty, caller can decide not to render.
         $cols = [];
-        for ($i = 1; $i <= 2; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
+            $img_id = (int) get_theme_mod("soype_twocol_{$i}_image", 0);
             $cols[] = [
-                'title'   => (string) get_theme_mod("soype_twocol_{$i}_title", ''),
-                'desc'    => (string) get_theme_mod("soype_twocol_{$i}_desc", ''),
-                'cta-text'   => (string) get_theme_mod("soype_twocol_{$i}_cta_text", ''),
-                'cta-link'   => (string) get_theme_mod("soype_twocol_{$i}_cta_link", ''),
-                'image'   => (int)    get_theme_mod("soype_twocol_{$i}_image", 0),
-                'bg'      => (string) get_theme_mod("soype_twocol_{$i}_bg", '#ffffff'),
-                // Derived values
-                'image_src' => ( $id = (int) get_theme_mod("soype_twocol_{$i}_image", 0) ) ? wp_get_attachment_image_src($id, 'full')[0] ?? '' : '',
+                'title'     => (string) get_theme_mod("soype_twocol_{$i}_title", ''),
+                'desc'      => (string) get_theme_mod("soype_twocol_{$i}_desc", ''),
+                'cta-text'  => (string) get_theme_mod("soype_twocol_{$i}_cta_text", ''),
+                'cta-link'  => (string) get_theme_mod("soype_twocol_{$i}_cta_link", ''),
+                'image'     => $img_id,
+                // kept for backward-compat reading only (no longer used by template):
+                'bg'        => (string) get_theme_mod("soype_twocol_{$i}_bg", '#ffffff'),
+                'image_src' => $img_id ? ( wp_get_attachment_image_src($img_id, 'full')[0] ?? '' ) : '',
             ];
         }
-        return $cols;
+
+        // New row backgrounds
+        $row1_bg = (string) get_theme_mod('soype_twocol_row1_bg', '');
+        $row2_bg = (string) get_theme_mod('soype_twocol_row2_bg', '');
+
+        // Back-compat fallback: if row bg empty, try to infer from old per-column bgs
+        if ($row1_bg === '') {
+            // prefer a non-white color among cols 1–2; otherwise transparent
+            $candidates = [ $cols[0]['bg'] ?? '', $cols[1]['bg'] ?? '' ];
+            foreach ($candidates as $c) { if ($c && strtolower($c) !== '#ffffff') { $row1_bg = $c; break; } }
+        }
+        if ($row2_bg === '') {
+            $candidates = [ $cols[2]['bg'] ?? '', $cols[3]['bg'] ?? '' ];
+            foreach ($candidates as $c) { if ($c && strtolower($c) !== '#ffffff') { $row2_bg = $c; break; } }
+        }
+
+        return [
+            'columns' => $cols,
+            'rows'    => [
+                1 => ['bg' => $row1_bg], // '' means transparent
+                2 => ['bg' => $row2_bg],
+            ],
+        ];
     }
 }
+
 
 /**
  * ========== Render helper ==========
@@ -235,7 +274,10 @@ if ( ! function_exists('soypecc_render_two_columns') ) {
             return '';
         }
 
-        $columns = soypecc_get_two_columns();
+        $data = soypecc_get_two_columns();
+        $columns = $data['columns'];
+        $rows    = $data['rows'];
+
 
         // Check if at least one column has meaningful content
         $has_content = false;
@@ -249,7 +291,9 @@ if ( ! function_exists('soypecc_render_two_columns') ) {
         $args = wp_parse_args($args, [
             'class'   => get_theme_mod('soype_twocol_class', ''),
             'columns' => $columns,
+            'rows'    => $rows,
         ]);
+
 
         ob_start();
         extract($args, EXTR_OVERWRITE);
