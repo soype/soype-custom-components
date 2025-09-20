@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SoyPe Custom components
  * Description: Colection of small custom components.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: soype
  * Text Domain: soype-custom-components
  */
